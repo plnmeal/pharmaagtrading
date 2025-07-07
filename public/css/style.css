@@ -1,0 +1,1221 @@
+/* --- 1. Global Variables (Consolidated) --- */
+/* Use only ONE :root block for the entire site */
+:root {
+    --primary-color: #006994;
+    --secondary-color: #d4af37;
+    --accent-color: #d4af37; /* Used on index.html connect section, matches secondary */
+    --light-background: #f0f8ff;
+    --dark-background: #014662;
+    --text-color: #495057;
+    --text-light: #b0c4de;
+    --white: #ffffff;
+    --border-color: #dee2e6;
+
+    /* Status colors from products.html */
+    --status-available-bg: #28a745;
+    --status-outofstock-bg: #6c757d;
+
+    /* Alternative colors/fonts found in snippets - choose one consistent set for the project */
+    /* --color-primary: #0D609B; */
+    /* --color-primary-hover: #0A4C7D; */
+    /* --color-secondary: #B08D57; */
+    /* --color-secondary-hover: #93703c; */
+    /* --color-text-primary: #1e293b; */
+    /* --color-text-secondary: #475569; */
+    /* --color-text-light: #f8fafc; */
+    /* --color-background-light: #ffffff; */
+    /* --color-background-muted: #f1f5f9; */
+    /* --color-background-dark: #0f172a; */
+}
+
+
+/* --- 2. Base Styles & Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Ensure only one font-family is used consistently */
+    font-family: 'Roboto', sans-serif; /* Sticking with Roboto as it's common across your provided snippets */
+    -webkit-font-smoothing: antialiased; /* From a snippet, good for typography */
+    -moz-osx-font-smoothing: grayscale; /* From a snippet, good for typography */
+    color: var(--text-color);
+    line-height: 1.6; /* Standard line-height */
+    background-color: #f4f4f4; /* Used on Products/News pages, more consistent than --white everywhere */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 15px; /* Common padding for sections */
+}
+
+h1, h2, h3, h4 { /* Added h4 from product detail page */
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+p {
+    color: var(--text-color);
+    margin-bottom: 1.5em; /* Adjusted for better paragraph spacing, from product detail */
+}
+
+a {
+    color: var(--primary-color); /* Default link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+
+/* --- 3. Utility Classes & Reusable Components --- */
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px; /* From index.html */
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500; /* From index.html */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none; /* Ensure no default button border */
+    cursor: pointer;
+    text-align: center;
+}
+.btn:hover {
+    background-color: var(--dark-background);
+    transform: translateY(-2px); /* From index.html */
+}
+/* Variations of button from product detail page */
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--secondary-color); /* Corrected from transparent */
+    color: var(--secondary-color);
+    padding: 15px 30px; /* Larger padding for these */
+    font-weight: 700;
+}
+.btn-outline:hover {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    transform: translateY(0); /* Remove transform on hover for consistency with default .btn */
+}
+.btn.selected { /* From product detail tabs */
+    background-color: var(--status-available-bg);
+    border-color: var(--status-available-bg);
+    color: var(--white);
+    cursor: default;
+}
+
+
+.section-title { /* Used on homepage */
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.section-title h2 {
+    font-size: 2.5rem;
+}
+.section-title p {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.page-header { /* Used on products.html, news.html */
+    background-color: var(--light-background);
+    text-align: center;
+    padding: 80px 15px;
+}
+.page-header h1 {
+    font-size: 3rem;
+}
+.page-header p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.content-panel { /* Used on news.html, product-detail.html */
+    background: var(--white);
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+}
+@media (max-width: 768px) {
+    .content-panel { padding: 20px; }
+}
+
+
+/* Loading Spinner */
+.loader { /* Used on products.html, news.html */
+    text-align: center;
+    padding: 40px;
+    display: none;
+}
+.loader .spinner {
+    border: 4px solid rgba(0,0,0,0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s ease infinite;
+    margin: 0 auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animations */
+.reveal, .animate-on-scroll { /* Combined two similar animation classes */
+    opacity: 0;
+    transform: translateY(30px); /* Slightly more subtle than 20px */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.active, .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- 4. Header & Navigation Styles --- */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+}
+
+.sticky-header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Desktop Nav */
+.desktop-nav {
+    display: none;
+}
+@media (min-width: 769px) {
+    .desktop-nav {
+        display: block;
+    }
+}
+.desktop-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+.desktop-nav a:hover {
+    color: var(--secondary-color);
+}
+.desktop-nav a.active-link {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+.desktop-nav a.active-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--secondary-color);
+}
+/* Alternative nav-link-alt from a snippet, keeping current active-link for consistency */
+/*
+.nav-link-alt { position: relative; padding-bottom: 0.3rem; color: var(--color-text-secondary); transition: color 0.3s ease; }
+.nav-link-alt:hover { color: var(--color-primary); }
+.nav-link-alt::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 0; height: 2px; background-color: var(--color-primary); transition: width 0.3s ease; }
+.nav-link-alt:hover::after, .nav-link-alt-active::after { width: 60%; }
+*/
+
+
+/* Mobile Menu */
+.mobile-nav-toggle {
+    display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    z-index: 1002;
+}
+@media (min-width: 769px) {
+    .mobile-nav-toggle {
+        display: none;
+    }
+}
+.mobile-menu { /* This entire block will be managed by JS for appearance */
+    position: fixed;
+    top: 0;
+    left: 100%; /* Off-screen by default */
+    width: 100%;
+    height: 100vh;
+    background-color: var(--dark-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.4s ease-in-out;
+    z-index: 1001;
+}
+.mobile-menu.active {
+    left: 0; /* Slide in */
+}
+.mobile-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.8rem;
+    margin: 20px 0;
+    transition: color 0.3s ease;
+}
+.mobile-menu a:hover {
+    color: var(--secondary-color);
+}
+.mobile-menu .close-btn {
+    position: absolute;
+    top: 25px;
+    right: 5%;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+}
+/* Alternative mobile-menu-alt from snippet - keeping current for consistency */
+/*
+.mobile-menu-alt { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--color-background-light); box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 40; border-top: 1px solid #e2e8f0; }
+.mobile-menu-alt a { display: block; padding: 1rem 1.5rem; border-bottom: 1px solid #f1f5f9; color: var(--color-text-primary); font-weight: 500; }
+.mobile-menu-alt a:hover { background-color: var(--color-background-muted); color: var(--color-primary); }
+*/
+
+
+/* --- 5. Homepage Specific Styles (index.html) --- */
+.hero-section {
+    display: flex;
+    min-height: 90vh;
+    width: 100%;
+}
+.hero-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 40px;
+    /* This background image should be moved to public/images and linked via asset() in Blade */
+    background: rgba(0, 105, 148, 0.8) url('../images/pharma-facility.jpg') no-repeat center center; /* Example path */
+    background-size: cover;
+}
+.hero-content-wrapper h1 {
+    font-size: 3.5rem;
+    color: var(--white);
+}
+.hero-content-wrapper p {
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    color: var(--white);
+    opacity: 0.9;
+}
+
+.partners-section {
+    background-color: var(--light-background);
+}
+.partners-section .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.partner-logos {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.partner-logo { /* These images should also be in public/images */
+    height: 55px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: filter 0.3s, opacity 0.3s;
+}
+.partner-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.map-section { /* Uses Leaflet JS */
+    background-color: var(--white);
+}
+.map-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+#distributionMap {
+    height: 500px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+.map-content .section-header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+.map-content .subtitle {
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    display: block;
+}
+.map-content h2 {
+    font-size: 2.5rem;
+    text-align: left;
+}
+.map-stats .stat-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+.map-stats .number {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-right: 15px;
+}
+.map-stats .text {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.offerings-section, .supply-chain-section { /* Shared background */
+    background-color: var(--light-background);
+}
+.offerings-grid, .supply-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.offering-card, .data-card {
+    background: var(--white);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.offering-card:hover, .data-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.offering-card i, .data-card .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 2.5rem;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+.offering-card:hover i, .data-card:hover .icon {
+    background-color: var(--secondary-color);
+    transform: rotate(15deg);
+}
+.offering-card h3, .data-card h3 {
+    font-size: 1.3rem;
+}
+.offering-card p, .data-card p {
+    margin-bottom: 25px;
+}
+
+.supply-chain-section .container {
+    text-align: center;
+}
+.supply-chain-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.supply-chain-text {
+    max-width: 700px;
+}
+.supply-chain-visual { /* This background image needs to be moved */
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    background-image: url('../images/supply-chain-infographic.png'); /* Example path */
+    background-size: cover;
+    background-position: center;
+    min-height: 300px;
+    border-radius: 8px;
+}
+.supply-grid {
+    margin-top: 60px;
+}
+
+.connect-section {
+    padding: 100px 0;
+    /* This background image needs to be moved */
+    background: rgba(0, 105, 148, 0.85) url('../images/professional-background.png') no-repeat center center; /* Example path */
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.connect-section .container {
+    max-width: 800px;
+    padding: 0 15px;
+}
+.connect-section h2 {
+    font-size: 2.8rem;
+    color: var(--white);
+}
+.connect-section p {
+    margin-bottom: 30px;
+    color: var(--white);
+    font-size: 1.1rem;
+    opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.connect-section .btn {
+    background-color: var(--accent-color);
+    color: var(--dark-background);
+}
+.connect-section .btn:hover {
+    background-color: var(--white);
+    color: var(--dark-background);
+}
+
+
+/* --- 6. Product Catalog Specific Styles (products.html) --- */
+.filter-section {
+    position: sticky;
+    top: 60px; /* Adjust based on header height */
+    z-index: 999;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    align-items: end;
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+.filter-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.filter-controls input, .filter-controls select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+.filter-buttons button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#apply-filters-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+#apply-filters-btn:hover {
+    background-color: var(--dark-background);
+}
+#reset-filters-btn {
+    background-color: #f8f9fa;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+#reset-filters-btn:hover {
+    background-color: #e9ecef;
+}
+
+.catalog-section {
+    background-color: var(--white);
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    
+    /* --- ADD/MODIFY THESE FOR EQUAL HEIGHT --- */
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    height: 100%; /* Important: makes the card itself stretch within its grid cell */
+    /* ------------------------------------------ */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+    position: relative;
+}
+.product-card.out-of-stock {
+    opacity: 0.65;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.product-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+.product-image-placeholder i {
+    font-size: 4rem;
+    opacity: 0.5;
+}
+.product-card-content {
+    padding: 20px;
+    /* --- MODIFY THIS FOR EQUAL HEIGHT --- */
+    flex-grow: 1; /* Allows content area to expand vertically */
+    /* ------------------------------------ */
+    display: flex; /* Make content a flex container too */
+    flex-direction: column; /* Arrange its children vertically */
+}
+.product-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+.product-manufacturer {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+.tag-container {
+    margin-bottom: 15px;
+}
+.tag {
+    display: inline-block;
+    background-color: var(--light-background);
+    color: var(--primary-color);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 2px;
+}
+.product-description {
+    font-size: 0.95rem;
+    /* --- ADD/MODIFY THESE FOR EQUAL HEIGHT --- */
+    flex-grow: 1; /* Allow description to grow and push other elements down */
+    margin-bottom: 20px; /* Keep existing margin */
+    overflow: hidden; /* Hide overflowing text, ensuring consistent height for the text area itself */
+    /* Optional: You can set a min-height or max-height for very strict control */
+    /* min-height: 80px; */
+    /* max-height: 120px; */
+    /* ------------------------------------------ */
+}
+.enquire-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    /* --- ADD THIS FOR BUTTON ALIGNMENT --- */
+    margin-top: auto; /* Pushes the button to the bottom of its flex container */
+    /* ------------------------------------ */
+}
+.product-card.out-of-stock .enquire-btn {
+    background-color: var(--status-outofstock-bg);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+/* Status Badge Styles */
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--white);
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.status-available {
+    background-color: var(--status-available-bg);
+}
+.status-out-of-stock {
+    background-color: var(--status-outofstock-bg);
+}
+.no-results { /* Used with JS for no filter matches */
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+    grid-column: 1 / -1;
+}
+.no-results i {
+    font-size: 4rem;
+    color: #ced4da;
+    margin-bottom: 20px;
+}
+.no-results p {
+    font-size: 1.5rem;
+    color: #6c757d;
+}
+
+
+/* --- 7. Product Detail Specific Styles (product-detail.html) --- */
+.page-content-section {
+    background-color: var(--light-background);
+}
+.product-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+@media (min-width: 768px) {
+    .product-detail-layout {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 50px;
+    }
+}
+
+/* Image Gallery */
+.product-gallery .main-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+.thumbnail-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+.thumbnail-container img {
+    width: 100%;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+.thumbnail-container img:hover, .thumbnail-container img.active {
+    border-color: var(--primary-color);
+}
+
+/* Product Info */
+.product-info h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+}
+.product-manufacturer {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #6c757d;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+.product-intro {
+    font-size: 1.1rem;
+    margin: 20px 0;
+}
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+}
+.info-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+.info-table td:first-child {
+    font-weight: 700;
+    color: var(--primary-color);
+    width: 40%;
+}
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+@media (min-width: 500px) {
+    .cta-buttons {
+        flex-direction: row;
+    }
+    .cta-buttons .btn {
+        flex: 1;
+    }
+}
+
+/* Tab Styles */
+.product-tabs-container {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+.tab-links {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-color);
+}
+.tab-link {
+    padding: 12px 20px;
+    cursor: pointer;
+    background: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #6c757d;
+    margin-bottom: -1px;
+}
+.tab-link.active {
+    color: var(--primary-color);
+    border-color: var(--border-color);
+    border-bottom-color: var(--white);
+    border-radius: 5px 5px 0 0;
+    background-color: var(--white);
+}
+.tab-content-wrapper {
+    border: 1px solid var(--border-color);
+    border-top: none;
+    padding: 25px;
+    border-radius: 0 0 5px 5px;
+}
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+.tab-content.active {
+    display: block;
+}
+.tab-content h3 {
+    font-size: 1.5rem;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Related Articles / Products (adjusted naming for consistency) */
+.related-articles { /* Renamed to .related-items, applies to products too */
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+.related-articles h2 {
+    text-align: center;
+}
+.related-articles-grid { /* Renamed to .related-items-grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.related-product-card { /* Can be renamed to .related-item-card */
+    background-color: var(--light-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+.related-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    border-color: var(--primary-color);
+}
+.related-product-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.related-product-card h4 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+
+/* --- 8. News Listing Specific Styles (news.html) --- */
+.news-listing-section {
+    background-color: var(--light-background);
+    min-height: 100vh;
+}
+.news-grid { /* This is defined again here, but it's consistent across product/news lists */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.news-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.news-card:hover img {
+    transform: scale(1.05);
+}
+.news-card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.news-meta {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+.news-card-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+.news-card-content p {
+    font-size: 0.95rem;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+.read-more-btn {
+    display: inline-block;
+    align-self: flex-start;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+.read-more-btn:hover {
+    color: var(--secondary-color);
+}
+
+
+/ *       */
+
+/* --- Contact Page Specific Styles --- */
+.contact-section {
+    background-color: var(--white);
+    padding-bottom: 60px; /* Adjust as needed */
+}
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for mobile */
+    gap: 50px;
+    align-items: flex-start; /* Align content at the top of grid cells */
+}
+@media (min-width: 992px) {
+    .contact-layout {
+        grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+        gap: 60px;
+    }
+}
+
+.contact-details .info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+.contact-details .info-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 20px;
+    width: 25px; /* Fixed width for icon to align text */
+    text-align: center;
+}
+.contact-details .info-item p {
+    margin: 0; /* Remove default paragraph margin */
+    line-height: 1.5;
+}
+.contact-details .info-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.contact-details .info-item a:hover {
+    color: var(--secondary-color);
+}
+
+#contactMap {
+    width: 100%;
+    height: 300px; /* Default height */
+    border-radius: 8px;
+    margin-top: 30px; /* Space from details above */
+    border: 1px solid var(--border-color);
+}
+@media (max-width: 768px) {
+    #contactMap {
+        height: 250px; /* Adjust map height for smaller screens */
+    }
+}
+
+.contact-form {
+    max-width: 700px; /* Max width for the form container itself */
+    margin: 0; /* Remove default margin from old inline style */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    background-color: var(--light-background);
+}
+/* Adjust margin for form wrapper on smaller screens if not part of grid gap */
+@media (max-width: 991px) {
+    .contact-form {
+        margin: 40px auto 0 auto; /* Center form on smaller screens if in single column layout */
+    }
+}
+
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+.contact-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.contact-form .form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+.contact-form textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+
+/* --- Refined Site Footer Styles (from inline Blade styles) --- */
+.site-footer .container {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.footer-column ul li a.footer-contact-link { /* Specific style for contact links if needed */
+    margin-top: 10px; /* Applies to mailto and tel links in contact column */
+    display: block; /* Ensure it stays block like other list items */
+}
+/* --- Your Provided Footer CSS (ADD THIS) --- */
+.site-footer {
+    background-color: var(--dark-background);
+    color: var(--text-light);
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+.footer-column h4 {
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+.footer-column p { color: var(--text-light); }
+.footer-column ul { list-style: none; }
+.footer-column ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s, padding-left 0.3s;
+}
+.footer-column ul li a:hover {
+    color: var(--accent-color);
+    padding-left: 5px;
+}
+.social-links a {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+.social-links a:hover { color: var(--secondary-color); }
+.footer-bottom {
+    border-top: 1px solid #0d5c7d;
+    text-align: center;
+    padding-top: 20px;
+    color: var(--text-light);
+    opacity: 0.8;
+}
+/* --- END Your Provided Footer CSS --- */
+/* Styles for Laravel session messages (success/error/validation) */
+/* These are inline in Blade but good to keep here for reference/consistency if moved */
+/*
+.alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.alert-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+*/
+
+/* --- 9. News Detail Specific Styles (news-detail.html) --- */
+/* Assuming this will follow a similar content-panel structure or full-width layout */
+/* Styles for news detail would go here. */
+
+
+/* --- 10. About Us Specific Styles (about.html) --- */
+/* Assuming this will follow a similar content-panel structure */
+/* Styles for about us would go here. */
+
+/* --- 11. Contact Page Specific Styles (contact.html) --- */
+/* Assuming this will follow a similar content-panel structure or map + form layout */
+/* Styles for contact would go here. */
+
+
+/* --- 12. Media Queries (Responsive Design) --- */
+/* Consolidated from all pages */
+@media (max-width: 992px) {
+    .map-grid {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .section-title h2,
+    .map-content h2,
+    .connect-section h2,
+    .page-header h1 { /* Added page-header h1 */
+        font-size: 2rem;
+    }
+    .hero-content-wrapper h1 {
+        font-size: 2.5rem;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .product-detail-layout { /* Applied from product-detail */
+        grid-template-columns: 1fr;
+    }
+    .content-panel { /* Already defined above, repeated here for context */
+        padding: 20px;
+    }
+}
+@media (max-width: 500px) { /* Added for cta-buttons flex-direction */
+    .cta-buttons {
+        flex-direction: column;
+    }
+    .cta-buttons .btn {
+        width: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Refined Loader Styles - Permanent part of your CSS */
+.loader {
+    text-align: center;
+    padding: 0;
+    display: block; /* IMPORTANT: Keep it block for IntersectionObserver */
+    min-height: 1px; /* IMPORTANT: Give it a minimal height */
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Hidden by default visually */
+    pointer-events: none;
+    overflow: hidden;
+}
+.loader .spinner {
+    display: inline-block;
+    border: 4px solid rgba(0,0,0,0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s ease infinite;
+    margin: auto;
+}
+
+/* Ensure no body { min-height: ... } rule is present at the bottom of the file */
+/* Optional: Add a subtle padding to the catalog section container to ensure space for loader/scrollbar */
+.catalog-section .container {
+    padding-bottom: 100px; /* Adds some extra space at the bottom of the content */
+}
