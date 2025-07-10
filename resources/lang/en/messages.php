@@ -108,5 +108,14 @@ return [
     'no_news_articles_found' => 'No news articles found.',
     'share_this_article' => 'Share This Article',
     'related_articles' => 'Related Articles',
+    
+    'ingredients' => 'Ingredients',
+    'select' => 'Select',
+    'request_a_quote' => 'Request a Quote',
+    'description_tab' => 'Description',
+    'benefits_tab' => 'Benefits',
+    'product_overview' => 'Product Overview',
+    'benefits_usage' => 'Benefits & Usage',
+    'related_products' => 'Related Products',
     'product_name_keyword_placeholder' => 'e.g., Analgesic, Antibiotic...', // New key for placeholder
 ];

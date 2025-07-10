@@ -160,22 +160,20 @@ a:hover {
 
 
 /* Loading Spinner */
-/* Refined Loader Styles - Permanent part of your CSS */
 .loader {
     text-align: center;
-    padding: 0; /* Remove padding to make it truly minimal */
-    display: block; /* IMPORTANT: Keep it block so IntersectionObserver can always see it */
-    min-height: 1px; /* IMPORTANT: Give it a minimum height to be observable */
-    height: auto; /* Allow content to define height if spinner is visible */
-    width: 100%; /* Take full width */
-    margin-top: 20px; /* Some spacing from content above */
-    transition: opacity 0.3s ease; /* Smooth fade in/out */
-    opacity: 0; /* Hidden by default (visually transparent) */
-    pointer-events: none; /* Prevent it from blocking clicks when hidden */
-    overflow: hidden; /* Hide spinner overflow when opacity is 0 if it has width */
+    padding: 0;
+    display: block;
+    min-height: 1px;
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 .loader .spinner {
-    /* Keep existing spinner styles; they make the spinner visible when opacity is 1 */
     display: inline-block;
     border: 4px solid rgba(0,0,0,0.1);
     width: 36px;
@@ -192,9 +190,9 @@ a:hover {
 
 
 /* Animations */
-.reveal, .animate-on-scroll { /* Combined two similar animation classes */
+.reveal, .animate-on-scroll {
     opacity: 0;
-    transform: translateY(30px); /* Slightly more subtle than 20px */
+    transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 .reveal.active, .animate-on-scroll.is-visible {
@@ -205,53 +203,52 @@ a:hover {
 
 /* --- NEW: Subheader Styles --- */
 .subheader {
-    background-color: var(--dark-background); /* Dark background for the subheader */
-    color: var(--text-light); /* Light text color */
+    background-color: var(--dark-background);
+    color: var(--text-light);
     font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border at bottom */
-    height: 35px; /* Adjust height directly, or control with padding */
-    display: flex; /* Make it a flex container for vertical centering */
-    align-items: center; /* Vertically center content */
-    overflow: hidden; /* Hide anything that goes outside */
-    z-index: 1001; /* Ensure it's above other elements if needed */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1001;
 }
-.subheader .subheader-container { /* Specific container for subheader flex */
+.subheader .subheader-container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Space out left and right content */
-    align-items: center; /* Vertically align items */
-    height: 100%; /* Make sure content fills subheader height */
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 .subheader-text p {
-    margin: 0; /* Remove default paragraph margin */
-    color: var(--text-light); /* Ensure text color */
+    margin: 0;
+    color: var(--text-light);
 }
 .subheader-contact-social {
     display: flex;
     align-items: center;
-    gap: 15px; /* Spacing between contact info and social icons */
+    gap: 15px;
 }
 .subheader-contact-social a {
-    color: var(--text-light); /* Link color in subheader */
+    color: var(--text-light);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 .subheader-contact-social a:hover {
-    color: var(--secondary-color); /* Hover color */
+    color: var(--secondary-color);
 }
 .subheader-contact-social i {
-    margin-right: 5px; /* Space between icon and text */
+    margin-right: 5px;
 }
-/* Social links within subheader (specific styling if needed) */
 .social-links-subheader {
     display: flex;
     gap: 10px;
 }
 .social-links-subheader a {
     color: var(--text-light);
-    font-size: 1.1rem; /* Adjust icon size */
+    font-size: 1.1rem;
     transition: color 0.3s ease;
 }
 .social-links-subheader a:hover {
@@ -332,13 +329,6 @@ a:hover {
     height: 2px;
     background-color: var(--secondary-color);
 }
-/* Alternative nav-link-alt from a snippet, keeping current active-link for consistency */
-/*
-.nav-link-alt { position: relative; padding-bottom: 0.3rem; color: var(--color-text-secondary); transition: color 0.3s ease; }
-.nav-link-alt:hover { color: var(--color-primary); }
-.nav-link-alt::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 0; height: 2px; background-color: var(--color-primary); transition: width 0.3s ease; }
-.nav-link-alt:hover::after, .nav-link-alt-active::after { width: 60%; }
-*/
 
 
 /* Mobile Menu */
@@ -354,10 +344,10 @@ a:hover {
         display: none;
     }
 }
-.mobile-menu { /* This entire block will be managed by JS for appearance */
+.mobile-menu {
     position: fixed;
     top: 0;
-    left: 100%; /* Off-screen by default */
+    left: 100%;
     width: 100%;
     height: 100vh;
     background-color: var(--dark-background);
@@ -369,7 +359,7 @@ a:hover {
     z-index: 1001;
 }
 .mobile-menu.active {
-    left: 0; /* Slide in */
+    left: 0;
 }
 .mobile-menu a {
     color: var(--white);
@@ -389,12 +379,6 @@ a:hover {
     color: var(--white);
     cursor: pointer;
 }
-/* Alternative mobile-menu-alt from snippet - keeping current for consistency */
-/*
-.mobile-menu-alt { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--color-background-light); box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 40; border-top: 1px solid #e2e8f0; }
-.mobile-menu-alt a { display: block; padding: 1rem 1.5rem; border-bottom: 1px solid #f1f5f9; color: var(--color-text-primary); font-weight: 500; }
-.mobile-menu-alt a:hover { background-color: var(--color-background-muted); color: var(--color-primary); }
-*/
 
 
 /* --- 5. Homepage Specific Styles (index.html) --- */
@@ -411,8 +395,7 @@ a:hover {
     text-align: center;
     width: 100%;
     padding: 40px;
-    /* This background image should be moved to public/images and linked via asset() in Blade */
-    background: rgba(0, 105, 148, 0.8) url('../images/pharma-facility.jpg') no-repeat center center; /* Example path */
+    background: rgba(0, 105, 148, 0.8) url('../images/pharma-facility.jpg') no-repeat center center;
     background-size: cover;
 }
 .hero-content-wrapper h1 {
@@ -442,7 +425,7 @@ a:hover {
     justify-content: center;
     flex-wrap: wrap;
 }
-.partner-logo { /* These images should also be in public/images */
+.partner-logo {
     height: 55px;
     filter: grayscale(100%);
     opacity: 0.6;
@@ -453,7 +436,7 @@ a:hover {
     opacity: 1;
 }
 
-.map-section { /* Uses Leaflet JS */
+.map-section {
     background-color: var(--white);
 }
 .map-grid {
@@ -560,11 +543,11 @@ a:hover {
 .supply-chain-text {
     max-width: 700px;
 }
-.supply-chain-visual { /* This background image needs to be moved */
+.supply-chain-visual {
     flex: 1;
     width: 100%;
     max-width: 600px;
-    background-image: url('../images/supply-chain-infographic.png'); /* Example path */
+    background-image: url('../images/supply-chain-infographic.png');
     background-size: cover;
     background-position: center;
     min-height: 300px;
@@ -576,8 +559,7 @@ a:hover {
 
 .connect-section {
     padding: 100px 0;
-    /* This background image needs to be moved */
-    background: rgba(0, 105, 148, 0.85) url('../images/professional-background.png') no-repeat center center; /* Example path */
+    background: rgba(0, 105, 148, 0.85) url('../images/professional-background.png') no-repeat center center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -609,10 +591,10 @@ a:hover {
     position: sticky;
     top: 60px; /* Adjust based on header height */
     z-index: 999;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background-color: var(--dark-background); /* CHANGED: Dark background for filter panel */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Keep shadow for subtle lift */
     padding: 15px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Adjusted border color for dark background */
 }
 .filter-controls {
     display: grid;
@@ -627,12 +609,15 @@ a:hover {
     display: block;
     font-size: 0.8rem;
     font-weight: 700;
+    color: var(--text-light); /* CHANGED: Light text for labels on dark background */
     margin-bottom: 8px;
 }
 .filter-controls input, .filter-controls select {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Adjusted border for inputs/selects */
+    background-color: var(--white); /* Keep input/select backgrounds white for contrast with text */
+    color: var(--text-color); /* Ensure input/select text remains readable */
     border-radius: 5px;
     font-size: 1rem;
 }
@@ -651,28 +636,54 @@ a:hover {
     transition: all 0.3s ease;
 }
 #apply-filters-btn {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--secondary-color); /* CHANGED: Apply button background to accent color */
+    color: var(--dark-background); /* CHANGED: Text color for apply button */
 }
 #apply-filters-btn:hover {
-    background-color: var(--dark-background);
+    background-color: var(--primary-color); /* CHANGED: Hover state for apply button */
+    color: var(--white);
 }
 #reset-filters-btn {
-    background-color: #f8f9fa;
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
+    background-color: transparent; /* CHANGED: Transparent background for reset */
+    border: 1px solid var(--text-light); /* CHANGED: Light border for reset */
+    color: var(--text-light); /* CHANGED: Light text for reset */
 }
 #reset-filters-btn:hover {
-    background-color: #e9ecef;
+    background-color: var(--text-light); /* CHANGED: Hover background for reset */
+    color: var(--dark-background); /* CHANGED: Hover text for reset */
 }
 
+/* --- MODIFIED: Background for #catalog-section --- */
 .catalog-section {
-    background-color: var(--white);
+    background-color: var(--light-background); /* Background color for the whole section */
 }
+
+/* --- NEW: Inner white content panel for product grid --- */
+/* Add a new div with this class inside the .catalog-section container in Blade */
+.catalog-section .content-panel-grid {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 40px; /* Consistent with other .content-panel */
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    margin: 0 auto; /* Center it within the container */
+    max-width: 1200px; /* Ensure it respects your max-width from .container */
+    width: 100%; /* Take full width within its padding */
+}
+@media (max-width: 768px) {
+    .catalog-section .content-panel-grid {
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+}
+
+
+/* --- Product Grid Layout (3 cards per row) --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 30px;
+    /* This creates 3 columns of equal width, with a gap. Responsive: at least 280px wide, up to 1fr each */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    align-items: stretch; /* Ensures cards stretch to fill height */
 }
 
 .product-card {
@@ -680,10 +691,10 @@ a:hover {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
-    
-    /* --- ADD/MODIFY THESE FOR EQUAL HEIGHT --- */
+
+    /* --- MODIFIED FOR EQUAL HEIGHT --- */
     display: flex;
-    flex-direction: column; /* Arrange content vertically */
+    flex-direction: column;
     height: 100%; /* Important: makes the card itself stretch within its grid cell */
     /* ------------------------------------------ */
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -697,14 +708,45 @@ a:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
+
+/* --- Product Card Image Aspect Ratio (1:1) --- */
+.product-card .product-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* For modern browsers for a perfect 1:1 square */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    display: block;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+/* Fallback for browsers that don't support aspect-ratio (optional) */
+@supports not (aspect-ratio: 1 / 1) {
+    .product-card .product-image-wrapper { /* Wrap your img in a div for this fallback */
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .product-card .product-image-wrapper .product-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
 .product-image-placeholder {
     width: 100%;
+    /* Keep height for backward compatibility if aspect-ratio not fully applied */
     height: 200px;
     background-color: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--primary-color);
+    aspect-ratio: 1 / 1; /* Apply aspect ratio to placeholder for consistency */
 }
 .product-image-placeholder i {
     font-size: 4rem;
@@ -712,11 +754,11 @@ a:hover {
 }
 .product-card-content {
     padding: 20px;
-    /* --- MODIFY THIS FOR EQUAL HEIGHT --- */
+    /* --- MODIFIED FOR EQUAL HEIGHT --- */
     flex-grow: 1; /* Allows content area to expand vertically */
-    /* ------------------------------------ */
-    display: flex; /* Make content a flex container too */
+    display: flex;
     flex-direction: column; /* Arrange its children vertically */
+    /* ------------------------------------ */
 }
 .product-card-content h3 {
     font-size: 1.25rem;
@@ -743,13 +785,14 @@ a:hover {
 }
 .product-description {
     font-size: 0.95rem;
-    /* --- ADD/MODIFY THESE FOR EQUAL HEIGHT --- */
+    /* --- MODIFIED FOR EQUAL HEIGHT --- */
     flex-grow: 1; /* Allow description to grow and push other elements down */
-    margin-bottom: 20px; /* Keep existing margin */
-    overflow: hidden; /* Hide overflowing text, ensuring consistent height for the text area itself */
-    /* Optional: You can set a min-height or max-height for very strict control */
-    /* min-height: 80px; */
-    /* max-height: 120px; */
+    margin-bottom: 20px;
+    overflow: hidden; /* Hide overflowing text */
+    /* Optional: If text overflow is an issue with varying lengths, you might want a line-clamp */
+    /* display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; */
     /* ------------------------------------------ */
 }
 .enquire-btn {
@@ -763,7 +806,7 @@ a:hover {
     border-radius: 5px;
     font-weight: 700;
     transition: background-color 0.3s ease;
-    /* --- ADD THIS FOR BUTTON ALIGNMENT --- */
+    /* --- ADDED FOR BUTTON ALIGNMENT --- */
     margin-top: auto; /* Pushes the button to the bottom of its flex container */
     /* ------------------------------------ */
 }
@@ -772,9 +815,8 @@ a:hover {
     cursor: not-allowed;
     pointer-events: none;
 }
-/* Status Badge Styles */
 .status-badge {
-  /*  position: absolute; */
+    position: absolute;
     top: 15px;
     right: 15px;
     padding: 5px 12px;
@@ -785,6 +827,7 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 2;
 }
 .status-available {
     background-color: var(--status-available-bg);
@@ -793,29 +836,7 @@ a:hover {
     background-color: var(--status-outofstock-bg);
 }
 
-
-.status-badge-list {
-    position: absolute; 
-    top: 15px;
-    right: 15px;
-    padding: 5px 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--white);
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.status-available-list {
-    background-color: var(--status-available-bg);
-}
-.status-out-of-stock-list {
-    background-color: var(--status-outofstock-bg);
-}
-
-
-.no-results { /* Used with JS for no filter matches */
+.no-results {
     display: none;
     text-align: center;
     padding: 80px 20px;
@@ -836,6 +857,59 @@ a:hover {
 .page-content-section {
     background-color: var(--light-background);
 }
+/* --- MODIFIED: Breadcrumb Styles (Adjusted for placement in .container) --- */
+.product-detail-breadcrumb { /* New class for specific breadcrumb styling on detail page */
+    background-color: var(--dark-background); /* CHANGED: Now dark background */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Keep a subtle shadow */
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-light); /* CHANGED: Default text color for breadcrumb */
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item a {
+    color: var(--text-light); /* CHANGED: Link color for dark background */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--secondary-color); /* CHANGED: Keep hover color, ensure visibility */
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.5); /* CHANGED: Lighter separator for dark background */
+    font-weight: normal;
+}
+
+.breadcrumb-item.active {
+    color: var(--white); /* CHANGED: Active item (current page) stands out in white */
+    font-weight: 500;
+}
+
+/* Hide separator after the last item */
+.breadcrumb-item:last-child .breadcrumb-separator {
+    display: none;
+}
+/* --- END Breadcrumb Styles --- */
+
+
 .product-detail-layout {
     display: grid;
     grid-template-columns: 1fr;
@@ -877,8 +951,6 @@ a:hover {
 }
 
 /* Product Info */
-
-
 .product-info h1 {
     font-size: 2.5rem;
     line-height: 1.2;
@@ -973,8 +1045,8 @@ a:hover {
     to { opacity: 1; }
 }
 
-/* Related Articles / Products (adjusted naming for consistency) */
-.related-articles { /* Renamed to .related-items, applies to products too */
+/* Related Articles / Products */
+.related-articles {
     padding-top: 40px;
     margin-top: 40px;
     border-top: 1px solid var(--border-color);
@@ -982,12 +1054,12 @@ a:hover {
 .related-articles h2 {
     text-align: center;
 }
-.related-articles-grid { /* Renamed to .related-items-grid */
+.related-articles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
-.related-product-card { /* Can be renamed to .related-item-card */
+.related-product-card {
     background-color: var(--light-background);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -1017,7 +1089,7 @@ a:hover {
     background-color: var(--light-background);
     min-height: 100vh;
 }
-.news-grid { /* This is defined again here, but it's consistent across product/news lists */
+.news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -1082,106 +1154,25 @@ a:hover {
 
 
 /* --- 9. News Detail Specific Styles (news-detail.html) --- */
-/* Assuming this will follow a similar content-panel structure or full-width layout */
-/* Styles for news detail would go here. */
 
 
 /* --- 10. About Us Specific Styles (about.html) --- */
-/* Assuming this will follow a similar content-panel structure */
-/* Styles for about us would go here. */
+
 
 /* --- 11. Contact Page Specific Styles (contact.html) --- */
-/* Assuming this will follow a similar content-panel structure or map + form layout */
-/* Styles for contact would go here. */
-
-
-/* --- 12. Media Queries (Responsive Design) --- */
-/* Consolidated from all pages */
-@media (max-width: 992px) {
-    .map-grid {
-        flex-direction: column;
-        grid-template-columns: 1fr;
-    }
-}
-@media (max-width: 768px) {
-    .section-title h2,
-    .map-content h2,
-    .connect-section h2,
-    .page-header h1 { /* Added page-header h1 */
-        font-size: 2rem;
-    }
-    .hero-content-wrapper h1 {
-        font-size: 2.5rem;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .product-detail-layout { /* Applied from product-detail */
-        grid-template-columns: 1fr;
-    }
-    .content-panel { /* Already defined above, repeated here for context */
-        padding: 20px;
-    }
-}
-@media (max-width: 500px) { /* Added for cta-buttons flex-direction */
-    .cta-buttons {
-        flex-direction: column;
-    }
-    .cta-buttons .btn {
-        width: 100%;
-    }
-}
-@media (max-width: 480px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* Refined Loader Styles - Permanent part of your CSS */
-.loader {
-    text-align: center;
-    padding: 0; /* Remove padding to make it truly minimal */
-    display: block; /* IMPORTANT: Keep it block so IntersectionObserver can always see it */
-    min-height: 1px; /* IMPORTANT: Give it a minimum height to be observable */
-    height: auto; /* Allow content to define height if spinner is visible */
-    width: 100%; /* Take full width */
-    margin-top: 20px; /* Some spacing from content above */
-    transition: opacity 0.3s ease; /* Smooth fade in/out */
-    opacity: 0; /* Hidden by default (visually transparent) */
-    pointer-events: none; /* Prevent it from blocking clicks when hidden */
-    overflow: hidden; /* Hide spinner overflow when opacity is 0 if it has width */
-}
-.loader .spinner {
-    /* Keep existing spinner styles; they make the spinner visible when opacity is 1 */
-    display: inline-block;
-    border: 4px solid rgba(0,0,0,0.1);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border-left-color: var(--primary-color);
-    animation: spin 1s ease infinite;
-    margin: auto;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* --- Contact Page Specific Styles --- */
 .contact-section {
     background-color: var(--white);
-    padding-bottom: 60px; /* Adjust as needed */
+    padding-bottom: 60px;
 }
 .contact-layout {
     display: grid;
-    grid-template-columns: 1fr; /* Default for mobile */
+    grid-template-columns: 1fr;
     gap: 50px;
-    align-items: flex-start; /* Align content at the top of grid cells */
+    align-items: flex-start;
 }
 @media (min-width: 992px) {
     .contact-layout {
-        grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+        grid-template-columns: 1fr 1fr;
         gap: 60px;
     }
 }
@@ -1195,11 +1186,11 @@ a:hover {
     font-size: 1.5rem;
     color: var(--primary-color);
     margin-right: 20px;
-    width: 25px; /* Fixed width for icon to align text */
+    width: 25px;
     text-align: center;
 }
 .contact-details .info-item p {
-    margin: 0; /* Remove default paragraph margin */
+    margin: 0;
     line-height: 1.5;
 }
 .contact-details .info-item a {
@@ -1213,32 +1204,30 @@ a:hover {
 
 #contactMap {
     width: 100%;
-    height: 300px; /* Default height */
+    height: 300px;
     border-radius: 8px;
-    margin-top: 30px; /* Space from details above */
+    margin-top: 30px;
     border: 1px solid var(--border-color);
 }
 @media (max-width: 768px) {
     #contactMap {
-        height: 250px; /* Adjust map height for smaller screens */
+        height: 250px;
     }
 }
 
 .contact-form {
-    max-width: 700px; /* Max width for the form container itself */
-    margin: 0; /* Remove default margin from old inline style */
+    max-width: 700px;
+    margin: 0;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.07);
     background-color: var(--light-background);
 }
-/* Adjust margin for form wrapper on smaller screens if not part of grid gap */
 @media (max-width: 991px) {
     .contact-form {
-        margin: 40px auto 0 auto; /* Center form on smaller screens if in single column layout */
+        margin: 40px auto 0 auto;
     }
 }
-
 
 .contact-form .form-group {
     margin-bottom: 20px;
@@ -1260,24 +1249,20 @@ a:hover {
     min-height: 150px;
     resize: vertical;
 }
-/* Styles for Laravel session messages (success/error/validation) - already in Blade inline, but good to have here for consistency */
-/*
-.alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-.alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-.alert-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-*/
 
-
+/* --- Refined Site Footer Styles (from inline Blade styles) --- */
 /* --- Refined Site Footer Styles (from inline Blade styles) --- */
 .site-footer .container {
     padding-top: 60px;
-    padding-bottom: 40px;
+    /* --- MODIFIED: Added margin-bottom to create separation --- */
+    margin-bottom: 20px; /* Space before the rock-bottom footer */
+    /* --- END MODIFIED --- */
+    padding-bottom: 40px; /* Keep original padding bottom if needed for content */
 }
-.footer-column ul li a.footer-contact-link { /* Specific style for contact links if needed */
-    margin-top: 10px; /* Applies to mailto and tel links in contact column */
-    display: block; /* Ensure it stays block like other list items */
+.footer-column ul li a.footer-contact-link {
+    margin-top: 10px;
+    display: block;
 }
-/* --- Your Provided Footer CSS (ADD THIS) --- */
 .site-footer {
     background-color: var(--dark-background);
     color: var(--text-light);
@@ -1313,10 +1298,79 @@ a:hover {
     transition: color 0.3s;
 }
 .social-links a:hover { color: var(--secondary-color); }
+
+/* --- MODIFIED: Footer Bottom Styles for "Rock Bottom" and Visibility --- */
 .footer-bottom {
-    border-top: 1px solid #0d5c7d;
-    text-align: center;
-    padding-top: 20px;
-    color: var(--text-light);
-    opacity: 0.8;
+    background-color: var(--primary-color); /* Kept: Distinct background color */
+    height: 35px; /* Fixed height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* --- REMOVED: border-top as it makes it look like part of main footer --- */
+    /* border-top: 1px solid #0d5c7d; */
+    /* --- END REMOVED --- */
+    padding: 0 15px;
+    font-size: 0.85rem;
+    color: var(--white); /* CHANGED: Set text to white for maximum visibility */
+    opacity: 1; /* Ensure full opacity */
+    box-sizing: border-box;
+    width: 100%; /* Ensure it spans full width */
+    flex-shrink: 0; /* Prevent it from shrinking if content is too tall */
+    /* --- NEW: Optional, for a true "sticky-to-bottom" if page content is short --- */
+    /* This setup typically requires the parent (body or html) to have min-height: 100vh;
+       and display: flex; flex-direction: column; to push the footer down.
+       Given your current layout, just having it as a final block element
+       after the main content and footer should naturally place it at the bottom. */
+    /* --- END NEW --- */
+}
+
+/* Specific styling for the "Powered by" section table */
+.footer-bottom .powered-by-table {
+    margin: 0;
+    text-align: right;
+}
+.footer-bottom .powered-by-table td {
+    padding: 0;
+}
+.footer-bottom .powered-by-table a {
+    color: var(--white); /* CHANGED: Link text white */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-bottom .powered-by-table a:hover {
+    color: var(--secondary-color);
+}
+.footer-bottom .powered-by-table img {
+    display: block;
+}
+
+
+/* --- 12. Media Queries (Responsive Design) --- */
+@media (max-width: 992px) {
+    /* ... existing media queries ... */
+}
+@media (max-width: 768px) {
+    /* ... existing media queries ... */
+}
+@media (max-width: 576px) {
+    /* ... existing media queries ... */
+}
+@media (max-width: 500px) {
+    /* ... existing media queries ... */
+    .footer-bottom {
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px 15px;
+    }
+    .footer-bottom .powered-by-table {
+        margin-top: 5px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
 }

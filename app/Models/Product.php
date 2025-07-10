@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 // Import all related models for relationships:
@@ -33,7 +34,7 @@ class Product extends Model
         'ingredients',
         'ingredients_es', // ADD THIS LINE
         'availability_status',
-        'product_image_path',
+ //       'product_image_path',
         'order',
         'is_active',
         'created_by',
@@ -46,6 +47,14 @@ class Product extends Model
     ];
 
     // Define relationships
+
+
+    // Define relationship to ProductImage
+    public function images(): HasMany // <-- CHANGE FROM App\Models\HasMany to Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('order');
+    }
+
     public function manufacturer(): BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);

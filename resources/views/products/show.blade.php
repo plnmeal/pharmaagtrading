@@ -7,26 +7,40 @@
 @section('content')
     <section class="page-content-section">
         <div class="container">
+            {{-- Breadcrumb Navigation (moved inside container) --}}
+            <nav aria-label="breadcrumb" class="product-detail-breadcrumb">
+                <ol class="breadcrumb">
+                    @foreach($breadcrumbs as $index => $breadcrumb)
+                        <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}" {{ $loop->last ? 'aria-current="page"' : '' }}>
+                            @if(!$loop->last)
+                                <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
+                            @else
+                                {{ $breadcrumb['name'] }}
+                            @endif
+                        </li>
+                        @if(!$loop->last)
+                            <span class="breadcrumb-separator">/</span>
+                        @endif
+                    @endforeach
+                </ol>
+            </nav>
+
             <div class="content-panel">
                 <div class="product-detail-layout">
                     <div class="product-gallery">
                         <div class="main-image">
-                            @if($product->product_image_path)
-                                <img id="mainProductImage" src="{{ asset('storage/' . $product->product_image_path) }}" alt="{{ $product->name }}">
+                            @if($product->images->isNotEmpty())
+                                <img id="mainProductImage" src="{{ asset('storage/' . $product->images->first()->path) }}" alt="{{ $product->images->first()->alt_text ?? $product->name }}">
                             @else
                                 <img id="mainProductImage" src="{{ asset('images/default-product.png') }}" alt="{{ $product->name }}">
                             @endif
                         </div>
                         <div class="thumbnail-container">
-                            @if($product->product_image_path)
-                                <img class="thumbnail active" src="{{ asset('storage/' . $product->product_image_path) }}" alt="{{ $product->name }} Thumbnail">
-                            @else
-                                <img class="thumbnail active" src="{{ asset('images/default-product.png') }}" alt="{{ $product->name }} Thumbnail">
-                            @endif
-                            {{-- Placeholder thumbnails --}}
-                            <img class="thumbnail" src="https://via.placeholder.com/100x100?text=Thumb+2" alt="Thumbnail 2">
-                            <img class="thumbnail" src="https://via.placeholder.com/100x100?text=Thumb+3" alt="Thumbnail 3">
-                            <img class="thumbnail" src="https://via.placeholder.com/100x100?text=Thumb+4" alt="Thumbnail 4">
+                            @forelse($product->images->sortBy('order') as $image)
+                                <img class="thumbnail" src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->alt_text ?? $product->name . ' thumbnail' }}" data-full-image="{{ asset('storage/' . $image->path) }}">
+                            @empty
+                                <img class="thumbnail" src="{{ asset('images/default-product.png') }}" alt="{{ $product->name }} Thumbnail">
+                            @endforelse
                         </div>
                     </div>
 
@@ -39,7 +53,6 @@
                         @php
                             $statusClass = 'status-available';
                             if ($product->availability_status === 'Out of Stock') $statusClass = 'status-out-of-stock';
-                            // Add more cases for other statuses if you want distinct colors
                         @endphp
                         <span class="status-badge {{ $statusClass }}">{{ $product->availability_status }}</span>
 
@@ -99,8 +112,8 @@
                     <div class="related-articles-grid">
                         @foreach($relatedProducts as $related)
                             <a href="{{ route('products.show', $related->slug) }}" class="related-product-card">
-                                @if($related->product_image_path)
-                                    <img src="{{ asset('storage/' . $related->product_image_path) }}" alt="{{ $related->name }}" style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">
+                                @if($related->images->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $related->images->first()->path) }}" alt="{{ $related->images->first()->alt_text ?? $related->name }}" style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">
                                 @else
                                     <div class="product-image-placeholder" style="height: 100px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; color: var(--primary-color);">
                                         <i class="fas fa-pills" style="font-size: 2.5rem; opacity: 0.5;"></i>
@@ -119,4 +132,20 @@
 
 @push('scripts')
     <script src="{{ asset('js/product-detail.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainProductImage = document.getElementById('mainProductImage');
+            const thumbnails = document.querySelectorAll('.thumbnail-container .thumbnail');
+
+            if (mainProductImage && thumbnails.length > 0) {
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', function () {
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        mainProductImage.src = this.dataset.fullImage || this.src;
+                    });
+                });
+            }
+        });
+    </script>
 @endpush

@@ -1,6 +1,7 @@
 {{-- resources/views/products/index.blade.php --}}
 @extends('layouts.app')
 
+{{-- Page Title and Meta Description --}}
 @section('title', __('messages.our_product_catalog_page_title') . ' | ' . ($settings->site_name ?? __('messages.pharmaagtrading_name_default')))
 @section('meta_description', __('messages.explore_product_catalog_desc'))
 
@@ -20,7 +21,7 @@
                 <label for="manufacturer-filter">{{ __('messages.manufacturer') }}</label>
                 <select id="manufacturer-filter">
                     <option value="all">{{ __('messages.all_manufacturers') }}</option>
-                    {{-- Manufacturer names are dynamic content, will be localized in JS --}}
+                    {{-- Manufacturer names are dynamic content, will be localized here --}}
                     @foreach($manufacturers as $manufacturer)
                         <option value="{{ $manufacturer->name }}">{{ $manufacturer->{'name_' . app()->getLocale()} ?? $manufacturer->name }}</option>
                     @endforeach
@@ -30,7 +31,7 @@
                 <label for="dosage-form-filter">{{ __('messages.dosage_form') }}</label>
                 <select id="dosage-form-filter">
                     <option value="all">{{ __('messages.all_dosage_forms') }}</option>
-                    {{-- Dosage Form names are dynamic content, will be localized in JS --}}
+                    {{-- Dosage Form names are dynamic content, will be localized here --}}
                     @foreach($dosageForms as $dosageForm)
                         <option value="{{ $dosageForm->name }}">{{ $dosageForm->{'name_' . app()->getLocale()} ?? $dosageForm->name }}</option>
                     @endforeach
@@ -40,7 +41,7 @@
                 <label for="therapeutic-category-filter">{{ __('messages.therapeutic_category') }}</label>
                 <select id="therapeutic-category-filter">
                     <option value="all">{{ __('messages.all_categories') }}</option>
-                    {{-- Therapeutic Category names are dynamic content, will be localized in JS --}}
+                    {{-- Therapeutic Category names are dynamic content, will be localized here --}}
                     @foreach($therapeuticCategories as $category)
                         <option value="{{ $category->name }}">{{ $category->{'name_' . app()->getLocale()} ?? $category->name }}</option>
                     @endforeach
@@ -65,16 +66,18 @@
 
     <section class="catalog-section">
         <div class="container">
+            <div class="content-panel-grid">
             {{-- Data passed as raw JSON to products.js --}}
+            {{-- The 'localizedProducts' variable is now prepared in the Controller --}}
             <div id="product-data-container"
-                data-products='@json($products)' {{-- CRUCIAL CHANGE: Pass raw $products collection --}}
-                data-next-page-url="{{ $products->nextPageUrl() ?? 'null' }}"
-                data-has-more-pages="{{ $products->hasMorePages() ? 'true' : 'false' }}"
-                data-storage-base-url="{{ asset('storage/') }}"
-                data-default-product-image-url="{{ asset('images/default-product.png') }}"
-                data-product-show-route="{{ route('products.show', '') }}"
-                data-product-base-url="{{ route('products.index') }}"
-                style="display: none;">
+                 data-products='@json($localizedProducts)'
+                 data-next-page-url="{{ $products->nextPageUrl() ?? 'null' }}"
+                 data-has-more-pages="{{ $products->hasMorePages() ? 'true' : 'false' }}"
+                 data-storage-base-url="{{ asset('storage/') }}"
+                 data-default-product-image-url="{{ asset('images/default-product.png') }}"
+                 data-product-show-route="{{ route('products.show', '') }}"
+                 data-product-base-url="{{ route('products.index') }}"
+                 style="display: none;">
             </div>
 
             <div id="product-grid" class="product-grid">
@@ -88,6 +91,7 @@
                 <i class="fas fa-search" style="font-size: 4rem; color: #ced4da; margin-bottom: 20px;"></i>
                 <p style="font-size: 1.5rem; color: #6c757d;">{{ __('messages.no_products_found') }}</p>
             </div>
+        </div>
         </div>
     </section>
 @endsection

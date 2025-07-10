@@ -18,6 +18,36 @@
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
 
+    {{-- Expose Laravel translations to JavaScript --}}
+    <script>
+        window.translations = {
+            // Add any messages your JavaScript needs here.
+            // Ensure you use addslashes() to properly escape strings for JavaScript.
+            'messages.out_of_stock': '{{ addslashes(__('messages.out_of_stock')) }}',
+            'messages.view_details': '{{ addslashes(__('messages.view_details')) }}',
+            'messages.no_products_found': '{{ addslashes(__('messages.no_products_found')) }}',
+            // Example for other filter options if needed in JS:
+            // 'messages.available': '{{ addslashes(__('messages.available')) }}',
+            // 'messages.coming_soon': '{{ addslashes(__('messages.coming_soon')) }}',
+            // 'messages.discontinued': '{{ addslashes(__('messages.discontinued')) }}',
+            // 'messages.all_statuses': '{{ addslashes(__('messages.all_statuses')) }}',
+            // 'messages.apply': '{{ addslashes(__('messages.apply')) }}',
+            // 'messages.reset': '{{ addslashes(__('messages.reset')) }}',
+            // ... add other messages as required by your JavaScript
+        };
+
+        // Define a global __ function that uses these translations
+        function __(key, replace = {}) {
+            let translation = window.translations[key] || key; // Fallback to key if not found
+
+            for (let placeholder in replace) {
+                translation = translation.replace(`:${placeholder}`, replace[placeholder]);
+            }
+
+            return translation;
+        }
+    </script>
+
     @stack('styles')
 </head>
 <body>

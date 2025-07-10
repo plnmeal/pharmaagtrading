@@ -107,5 +107,14 @@ return [
     'no_news_articles_found' => 'No se encontraron artículos de noticias.',
     'share_this_article' => 'Comparte Este Artículo',
     'related_articles' => 'Artículos Relacionados',
+
+        'ingredients' => 'Ingredientes',
+    'select' => 'Seleccionar',
+    'request_a_quote' => 'Solicitar Presupuesto',
+    'description_tab' => 'Descripción',
+    'benefits_tab' => 'Beneficios',
+    'product_overview' => 'Resumen del Producto',
+    'benefits_usage' => 'Beneficios y Uso',
+    'related_products' => 'Productos Relacionados',
     'product_name_keyword_placeholder' => 'p. ej., Analgésico, Antibiótico...', // New key for placeholder
 ];
