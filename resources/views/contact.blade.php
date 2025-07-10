@@ -1,5 +1,5 @@
 {{-- resources/views/contact.blade.php --}}
-@extends('layouts.app') {{-- EXTEND THE MASTER LAYOUT --}}
+@extends('layouts.app')
 
 @section('title', __('messages.contact') . ' | ' . ($settings->site_name ?? __('messages.pharmaagtrading_name_default')))
 @section('meta_description', $settings->site_description ?? __('messages.get_in_touch_desc'))

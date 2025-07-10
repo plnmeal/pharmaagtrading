@@ -96,10 +96,10 @@ return [
     'supply_chain_desc' => 'Aprovechamos la gestión de inventario impulsada por IA, la logística de cadena de frío validada de extremo a extremo y la orientación regulatoria experta para crear una cadena de suministro resistente y eficiente.',
     'pharmaagtrading_name_default' => 'PharmaAGTrading', // Updated default site name fallback
     'about_pharmaagtrading_dr' => 'Acerca de PharmaAGTrading RD', // Updated from PharmaCorp to PharmaAGTrading
-    'contact_address_default' => 'Av. John F. Kennedy,<br>Santo Domingo, D.N., 10122', // Default address
+    'contact_address_default' => 'Pharma AG Trading, S.R.L., Club Activo 20-30#52, Ensanche Ozama, Santo Domingo, Dominican Republic', // Default address
 
     // New keys specific to News Index page
-      'news_insights_page_title' => 'Noticias e Información',
+    'news_insights_page_title' => 'Noticias e Información',
     'stay_informed_news_section' => 'Mantente informado sobre los últimos desarrollos en logística y distribución de atención médica.',
     'uncategorized' => 'Sin Categoría',
     'no_date' => 'Sin Fecha',

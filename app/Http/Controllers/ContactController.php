@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// Removed: use App\Models\Setting; // Handled by NavigationComposer
 use App\Models\Lead;
+use App\Models\Setting; // IMPORTANT: Re-add this import
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
@@ -16,13 +16,14 @@ class ContactController extends Controller
      */
     public function index(): View
     {
-        // Removed: $settings = Setting::firstOrCreate(...); // Handled by NavigationComposer
-        return view('contact'); // 'settings' is now available from Composer
+        // Explicitly fetch $settings for this page as a workaround
+        $settings = Setting::firstOrCreate(
+            ['id' => 1],
+            ['site_name' => 'pharmaagtrading'] // Ensure default if not exists
+        );
+        return view('contact', compact('settings')); // Pass settings explicitly
     }
 
-    /**
-     * Handle contact form submission.
-     */
     public function submit(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [

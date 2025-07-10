@@ -96,8 +96,9 @@ return [
     'supply_chain_desc' => 'We leverage AI-powered inventory management, end-to-end validated cold chain logistics, and expert regulatory guidance to create a resilient and efficient supply chain.',
     'pharmaagtrading_name_default' => 'PharmaAGTrading', // Updated default site name fallback
     'about_pharmaagtrading_dr' => 'About PharmaAGTrading DR', // Updated from PharmaCorp to PharmaAGTrading
-    'contact_address_default' => 'Av. John F. Kennedy,<br>Santo Domingo, D.N., 10122', // Default address
+    'contact_address_default' => 'Pharma AG Trading, S.R.L., Club Activo 20-30#52, Ensanche Ozama, Santo Domingo, Dominican Republic', // Default address
 
+  
     // New keys specific to News Index page
     'news_insights_page_title' => 'News & Insights',
     'stay_informed_news_section' => 'Stay informed about the latest developments in healthcare logistics and distribution.',
