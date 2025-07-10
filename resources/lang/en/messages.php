@@ -1,0 +1,111 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'network' => 'Network',
+    'products' => 'Products',
+    'news' => 'News',
+    'contact' => 'Contact',
+    'careers' => 'Careers',
+    'legal' => 'Legal',
+    'privacy_policy' => 'Privacy Policy',
+    'terms_of_service' => 'Terms of Service',
+
+    'about_pharmacorp_dr' => 'About PharmaCorp DR', // Original from prompt, kept as is
+    'site_description_short' => 'Redefining pharmaceutical distribution with technology, precision, and reliability.',
+    'copyright_all_rights' => 'All Rights Reserved.',
+    'contact_info' => 'Contact Info',
+    'navigate' => 'Navigate',
+
+    'our_office' => 'Our Office',
+    'send_message' => 'Send Us a Message',
+    'your_name' => 'Your Name:',
+    'your_email' => 'Your Email:',
+    'phone_optional' => 'Phone (Optional):',
+    'subject_optional' => 'Subject (Optional):',
+    'your_message' => 'Your Message:',
+    'send_message_button' => 'Send Message',
+    'email_success_message' => 'Your message has been sent successfully! We will get back to you soon.',
+    'email_error_message' => 'There was a problem sending your message. Please try again later.',
+    'form_error_message' => 'Please correct the form errors and try again.',
+
+    'all_manufacturers' => 'All Manufacturers',
+    'all_dosage_forms' => 'All Dosage Forms',
+    'all_categories' => 'All Categories',
+    'all_statuses' => 'All Statuses',
+    'available' => 'Available',
+    'out_of_stock' => 'Out of Stock',
+    'discontinued' => 'Discontinued',
+    'coming_soon' => 'Coming Soon',
+    'product_name_keyword' => 'Product Name or Keyword',
+    'manufacturer' => 'Manufacturer',
+    'dosage_form' => 'Dosage Form',
+    'therapeutic_category' => 'Therapeutic Category',
+    'availability' => 'Availability',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'no_products_found' => 'No products found matching your criteria.',
+    'view_details' => 'View Details',
+
+    'trusted_by_healthcare_leaders' => 'Trusted by Healthcare Leaders',
+    'our_infrastructure' => 'Our Infrastructure',
+    'a_nationwide_distribution_grid' => 'A Nationwide Distribution Grid',
+    'major_hubs' => 'Major Hubs',
+    'provinces_served' => 'Provinces Served',
+    'logistics_support' => '/7 Logistics Support', // "/7 Logistics Support"
+    'a_comprehensive_product_portfolio' => 'A Comprehensive Product Portfolio',
+    'latest_news_insights' => 'Latest News & Insights',
+    'stay_informed_news_section' => 'Stay informed about the latest developments in healthcare logistics and distribution.',
+    'read_more' => 'Read More',
+    'intelligent_supply_chain_services' => 'Intelligent Supply Chain Services',
+    'our_solutions' => 'Our Solutions',
+    'smart_warehousing' => 'Smart Warehousing',
+    'validated_cold_chain' => 'Validated Cold Chain',
+    'compliance_as_a_service' => 'Compliance as a Service',
+    'build_future_together' => 'Build the Future of Healthcare, Together.',
+    'join_network_cta_desc' => 'Join our network of leading manufacturers and healthcare providers. Let\'s discuss how we can create a more resilient and efficient supply chain in the Dominican Republic.',
+    'become_a_partner' => 'Become a Partner',
+    'our_product_catalog' => 'Our Product Catalog',
+    'explore_product_catalog_desc' => 'Explore our extensive range of high-quality pharmaceutical products. Use the filters below to find exactly what you need.',
+    'get_in_touch_title' => 'Get In Touch',
+    'get_in_touch_desc' => 'We\'re here to help. Reach out to us with any questions, partnership inquiries, or service requests. Our team is ready to assist you.',
+    'business_hours' => 'Business Hours',
+    'monday_friday' => 'Monday - Friday:',
+    'saturday_sunday' => 'Saturday - Sunday:',
+    'closed' => 'Closed',
+    'pharmacorp_office_location' => 'PharmaCorp Office', // Original from prompt, kept as is
+    'our_product_catalog_page_title' => 'Our Product Catalog',
+    'news_insights_page_title' => 'News & Insights',
+    'unp_owered_by' => 'Powered by',
+    'unp_owered_by_company' => 'Ayuva (Bhandaris)',
+    'page_content_title' => 'Our Office', // Default for pages, might be dynamic in CMS
+    'page_content_desc' => 'We are here to help.', // Default for pages, might be dynamic in CMS
+
+    // New keys for Homepage specific dynamic content fallbacks and other general labels
+    'home_default_title' => 'Your Gateway to Quality Pharma Solutions',
+    'site_default_description' => 'Ayuva is a leading pharmaceutical distributor in the Dominican Republic, offering intelligent supply chain services, a comprehensive product portfolio, and a nationwide logistics network.',
+    'your_gateway_title' => 'Your Gateway to Quality Pharma Solutions',
+    'your_gateway_subtitle' => 'Powering the health of the Dominican Republic with a distribution network built on precision, reliability, and an unwavering commitment to quality.',
+    'explore_portfolio_button' => 'Explore Our Portfolio',
+    'nationwide_distribution_desc' => 'Our network is strategically designed for maximum efficiency, ensuring vital products are delivered where they are needed most, on time, every time.',
+    'no_trusted_partners' => 'No trusted partners found.',
+    'no_product_offerings' => 'No product offerings found.',
+    'no_latest_news' => 'No latest news found.',
+    'uncategorized' => 'Uncategorized',
+    'no_date' => 'No Date',
+    'supply_chain_desc' => 'We leverage AI-powered inventory management, end-to-end validated cold chain logistics, and expert regulatory guidance to create a resilient and efficient supply chain.',
+    'pharmaagtrading_name_default' => 'PharmaAGTrading', // Updated default site name fallback
+    'about_pharmaagtrading_dr' => 'About PharmaAGTrading DR', // Updated from PharmaCorp to PharmaAGTrading
+    'contact_address_default' => 'Av. John F. Kennedy,<br>Santo Domingo, D.N., 10122', // Default address
+
+    // New keys specific to News Index page
+    'news_insights_page_title' => 'News & Insights',
+    'stay_informed_news_section' => 'Stay informed about the latest developments in healthcare logistics and distribution.',
+    'uncategorized' => 'Uncategorized',
+    'no_date' => 'No Date',
+    'read_more' => 'Read More',
+    'no_news_articles_found' => 'No news articles found.',
+    'share_this_article' => 'Share This Article',
+    'related_articles' => 'Related Articles',
+    'product_name_keyword_placeholder' => 'e.g., Analgesic, Antibiotic...', // New key for placeholder
+];

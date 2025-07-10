@@ -1,46 +1,64 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $settings->site_name ?? 'Ayuva' }} | @yield('title', 'Your Gateway to Quality Pharma Solutions')</title>
+    <title>@yield('title', ($settings->hero_title ?? __('messages.home_default_title')) . ' | ' . ($settings->site_name ?? __('messages.pharmaagtrading_name_default')))</title>
 
-    {{-- Dynamic Meta Description from CMS --}}
-    <meta name="description" content="@yield('meta_description', $settings->site_description ?? 'Ayuva is a leading pharmaceutical distributor in the Dominican Republic, offering intelligent supply chain services, a comprehensive product portfolio, and a nationwide logistics network.')">
+    <meta name="description" content="@yield('meta_description', $settings->site_description ?? __('messages.site_default_description'))">
     <meta name="keywords" content="pharmaceutical distribution, pharma logistics, healthcare supply chain, Dominican Republic, Santo Domingo, medicine distribution, cold chain logistics">
 
-    {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    {{-- Font Awesome (CDN) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     {{-- Custom CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
 
-    {{-- Placeholder for page-specific styles, like Leaflet CSS --}}
     @stack('styles')
 </head>
 <body>
 
-{{-- Include Header Component, passing all necessary data --}}
-{{-- Make sure $headerNav is passed here --}}
-@include('components.header', compact('settings', 'headerNav'))
+{{-- START SUBHEADER SECTION --}}
+<div class="subheader">
+    <div class="container subheader-container"> {{-- Added subheader-container class for specific flex control --}}
+        <div class="social-links-subheader"> {{-- Social media icons on the left --}}
+            @if($settings->facebook_url)
+                <a href="{{ $settings->facebook_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            @endif
+            @if($settings->twitter_url)
+                <a href="{{ $settings->twitter_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            @endif
+            @if($settings->linkedin_url)
+                <a href="{{ $settings->linkedin_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+            @endif
+        </div>
+        <div class="subheader-right-content"> {{-- Language switcher and contact details on the right --}}
+
+            {{-- LANGUAGE SWITCHER --}}
+            <div class="language-switcher">
+                <a href="{{ route('locale.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'active-lang' : '' }}">EN</a>
+                <span>|</span>
+                <a href="{{ route('locale.switch', 'es') }}" class="{{ app()->getLocale() === 'es' ? 'active-lang' : '' }}">ES</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- END SUBHEADER SECTION --}}
+
+@include('components.header') {{-- Your existing header component --}}
 
 <main>
     @yield('content')
 </main>
 
-{{-- Include Footer Component, passing all necessary data --}}
-{{-- Make sure $footerNavigateNav and $footerLegalNav are passed here --}}
-@include('components.footer', compact('settings', 'footerNavigateNav', 'footerLegalNav'))
+@include('components.footer')
 
 {{-- Common JavaScript --}}
-<script src="{{ asset('js/app.js') }}"></script>
-{{-- Page-specific JavaScript will be pushed here --}}
+<script src="{{ asset('js/app.js') }}?v={{ filemtime(public_path('js/app.js')) }}"></script>
 @stack('scripts')
 
 </body>

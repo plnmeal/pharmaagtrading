@@ -28,22 +28,28 @@ class Kernel extends HttpKernel
      *
      * @var array<string, array<int, class-string|string>>
      */
-    protected $middlewareGroups = [
-        'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
+// app/Http/Kernel.php
 
-        'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-    ];
+protected $middlewareGroups = [
+    'web' => [
+        \Illuminate\Cookie\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class, // This was missing in your provided code
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \App\Http\Middleware\SetLocale::class, // ADD THIS LINE (our custom middleware)
+        \Filament\Http\Middleware\DisableBladeIconComponents::class, // This was missing in your provided code
+        \Filament\Http\Middleware\DispatchServingFilamentEvent::class, // This was missing in your provided code
+    ],
+
+    'api' => [
+        // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+];
 
     /**
      * The application's middleware aliases.

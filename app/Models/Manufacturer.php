@@ -4,25 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo; // Import BelongsTo
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Manufacturer extends Model
 {
     use HasFactory;
 
-    protected $table = 'manufacturers'; // Explicitly set the table name
+    protected $table = 'manufacturers';
 
-    // Define which attributes are mass assignable
     protected $fillable = [
         'name',
+        'name_es', // ADD THIS LINE
         'description',
+        'description_es', // ADD THIS LINE
         'logo_path',
         'website_url',
         'order',
         'is_active',
         'is_featured',
-        'created_by', // Add these for mass assignment if you're setting them manually
-        'updated_by', // (Though often handled automatically by Filament or observers)
+        'created_by',
+        'updated_by',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     // Define relationships for created_by and updated_by users

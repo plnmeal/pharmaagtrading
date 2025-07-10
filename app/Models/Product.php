@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo; // Import BelongsTo
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 // Import all related models for relationships:
 use App\Models\Manufacturer;
-use App\Models\DosageForm; // <-- ADD THIS LINE
+use App\Models\DosageForm;
 use App\Models\TherapeuticCategory;
-use App\Models\User; // For created_by/updated_by
-
-use Illuminate\Support\Str; // For slug generation and snippets (if used in model)
+use App\Models\User;
 
 class Product extends Model
 {
@@ -22,13 +21,17 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'name_es', // ADD THIS LINE
         'slug',
         'manufacturer_id',
         'dosage_form_id',
         'therapeutic_category_id',
         'description',
+        'description_es', // ADD THIS LINE
         'benefits',
+        'benefits_es', // ADD THIS LINE
         'ingredients',
+        'ingredients_es', // ADD THIS LINE
         'availability_status',
         'product_image_path',
         'order',
@@ -70,9 +73,6 @@ class Product extends Model
 
     /**
      * Get the route key for the model.
-     * Allows using 'slug' in route model binding instead of ID.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {

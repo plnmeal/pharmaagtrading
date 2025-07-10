@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo; // Import BelongsTo
-use Illuminate\Support\Str; // For slug generation and potentially snippets
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class NewsArticle extends Model
 {
@@ -16,10 +16,13 @@ class NewsArticle extends Model
     protected $fillable = [
         'news_category_id',
         'title',
+        'title_es', // ADD THIS LINE
         'slug',
         'featured_image_path',
         'snippet',
+        'snippet_es', // ADD THIS LINE
         'content',
+        'content_es', // ADD THIS LINE
         'published_at',
         'is_active',
         'is_featured',
@@ -52,18 +55,9 @@ class NewsArticle extends Model
 
     /**
      * Get the route key for the model.
-     * Allows using 'slug' in route model binding instead of ID.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
-
-    // Optional: Mutator to generate snippet from content if not provided
-    // public function setSnippetAttribute($value)
-    // {
-    //     $this->attributes['snippet'] = $value ?: Str::limit(strip_tags($this->content), 150);
-    // }
 }

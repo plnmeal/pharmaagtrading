@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cardLink.innerHTML = `
             <article class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
-                <div class="status-badge ${statusClass}">${product.availability_status}</div>
+                <div class="status-badge-list ${statusClass}">${product.availability_status}</div>
                 <img src="${imageUrl}" alt="${product.name}" class="product-image" loading="lazy" decoding="async">
                 <div class="product-card-content">
                     <h3 style="color: var(--text-color);">${product.name}</h3>

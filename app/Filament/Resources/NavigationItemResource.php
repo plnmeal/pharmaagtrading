@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NavigationItemResource\Pages;
 use App\Filament\Resources\NavigationItemResource\RelationManagers;
-use App\Models\NavigationItem; // Corrected to NavigationItem model
+use App\Models\NavigationItem;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section; // For organizing forms
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs; // IMPORT THIS
+use Filament\Forms\Components\Tabs\Tab; // IMPORT THIS
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,10 +19,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Database\Eloquent\Model; // For mutateFormData
-use App\Models\User; // For creator/editor relationships
-
-// IMPORTANT: Import these for conditional form logic
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 use Filament\Forms\Set;
 use Filament\Forms\Get;
 
@@ -28,9 +29,9 @@ class NavigationItemResource extends Resource
 {
     protected static ?string $model = NavigationItem::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bars-3-bottom-left'; // Icon for navigation
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3-bottom-left';
     protected static ?string $navigationLabel = 'Navigation Menus';
-    protected static ?string $navigationGroup = 'Site Content'; // Group with Pages, Services
+    protected static ?string $navigationGroup = 'Site Content';
 
     public static function form(Form $form): Form
     {
@@ -38,41 +39,56 @@ class NavigationItemResource extends Resource
             ->schema([
                 Section::make('Navigation Item Details')
                     ->schema([
-                        TextInput::make('label')
-                            ->required()
-                            ->maxLength(255)
-                            ->helperText('The text displayed in the menu (e.g., "About Us", "Our Products").')
-                            ->columnSpanFull(),
+                        // Use Tabs for English and Spanish label input
+                        Tabs::make('Label Translation') // NEW TABS HERE
+                            ->tabs([
+                                Tab::make('English Label')
+                                    ->schema([
+                                        TextInput::make('label')
+                                            ->label('Label (English)')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->helperText('Text displayed in menu for English users.'),
+                                    ]),
+                                Tab::make('Spanish Label')
+                                    ->schema([
+                                        TextInput::make('label_es')
+                                            ->label('Label (Spanish)')
+                                            ->maxLength(255)
+                                            ->helperText('Text displayed in menu for Spanish users.'),
+                                    ]),
+                            ]),
+                        // End Tabs for labels
 
                         Select::make('type')
                             ->options([
-                                'home_index' => 'Homepage', // Specific link for home
-                                'products_index' => 'Products Page', // Specific link for products index
-                                'news_index' => 'News Page', // Specific link for news index
-                                'contact_index' => 'Contact Page', // Specific link for contact page
+                                'home_index' => 'Homepage',
+                                'products_index' => 'Products Page',
+                                'news_index' => 'News Page',
+                                'contact_index' => 'Contact Page',
                                 'page' => 'CMS Page',
                                 'news_category' => 'News Category',
                                 'therapeutic_category' => 'Product Therapeutic Category',
                                 'dosage_form' => 'Product Dosage Form',
-                                'homepage_section' => 'Homepage Section (Anchor)', // For #network, #services etc.
+                                'homepage_section' => 'Homepage Section (Anchor)',
                                 'custom_url' => 'Custom URL',
                             ])
                             ->required()
-                            ->reactive() // Make the form reactive to changes in this field
-                            ->afterStateUpdated(fn ($state, Set $set) => $set('custom_url', null)) // Clear custom_url if type changes
+                            ->reactive()
+                            ->afterStateUpdated(fn ($state, Set $set) => $set('custom_url', null))
                             ->helperText('Select the type of link this menu item will be.'),
 
-                        // Conditional Fields based on 'type'
+                        // Conditional Fields based on 'type' (no change here)
                         TextInput::make('custom_url')
                             ->label('Custom URL')
                             ->url()
                             ->visible(fn (Get $get): bool => $get('type') === 'custom_url' || $get('type') === 'homepage_section')
-                            ->required(fn (Get $get): bool => $get('type') === 'custom_url') // Required only if type is custom_url
+                            ->required(fn (Get $get): bool => $get('type') === 'custom_url')
                             ->placeholder(fn (Get $get): string => $get('type') === 'homepage_section' ? '#network' : 'https://example.com/'),
 
                         Select::make('page_id')
                             ->label('Select CMS Page')
-                            ->relationship('page', 'title') // Link to Page model's 'title'
+                            ->relationship('page', 'title')
                             ->searchable()
                             ->preload()
                             ->visible(fn (Get $get): bool => $get('type') === 'page')
@@ -107,7 +123,6 @@ class NavigationItemResource extends Resource
                                 'header' => 'Header Navigation',
                                 'footer_navigate' => 'Footer - Navigate Column',
                                 'footer_legal' => 'Footer - Legal Column',
-                                // Add more locations as needed, e.g., 'mobile_menu' if different structure
                             ])
                             ->required()
                             ->default('header')
@@ -136,6 +151,11 @@ class NavigationItemResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
+                TextColumn::make('label_es') // Display Spanish label in table
+                    ->label('Label (ES)')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('type')
                     ->badge()
                     ->sortable(),
@@ -215,7 +235,6 @@ class NavigationItemResource extends Resource
         ];
     }
 
-    // Auto-populate created_by and updated_by
     public static function mutateFormDataBeforeCreate(array $data): array
     {
         $data['created_by'] = auth()->id();

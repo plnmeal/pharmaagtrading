@@ -9,26 +9,26 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section; // Import Section
+use Filament\Forms\Components\Tabs; // IMPORT THIS
+use Filament\Forms\Components\Tabs\Tab; // IMPORT THIS
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-// IMPORTANT: IconColumn is NOT used here to avoid the SVG error.
-// Make sure this line is NOT present if you commented it out before:
-// use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn; // Keep TextColumn
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User; // For creator/editor relationships
+use App\Models\User;
+use Filament\Forms\Set;
+use Filament\Forms\Get;
 
 class DosageFormResource extends Resource
 {
     protected static ?string $model = DosageForm::class;
 
-    // Using a basic Heroicon to avoid previous SVG issues.
-    protected static ?string $navigationIcon = 'heroicon-o-cube';
-
+    protected static ?string $navigationIcon = 'heroicon-o-cube'; // Using cube as it's a safe icon.
     protected static ?string $navigationLabel = 'Dosage Forms';
     protected static ?string $navigationGroup = 'Product Management';
 
@@ -36,42 +36,62 @@ class DosageFormResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->unique(ignoreRecord: true)
-                    ->columnSpanFull()
-                    ->autofocus(),
+                // Main tab structure for multilingual content
+                Tabs::make('Dosage Form Content')
+                    ->tabs([
+                        Tab::make('English')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->unique(ignoreRecord: true) // Unique in English names
+                                    ->label('Name (English)'),
 
-                // We keep this field to store the Font Awesome class for frontend use
-                TextInput::make('icon_class')
-                    ->label('Font Awesome Icon Class')
-                    ->placeholder('e.g., fa-solid fa-syringe, fa-pills')
-                    ->maxLength(255)
-                    ->helperText('Find icons at fontawesome.com. Use "fa-solid fa-iconname".'),
+                                RichEditor::make('description')
+                                    ->label('Description (English)')
+                                    ->toolbarButtons(['bold', 'italic', 'link', 'blockquote', 'strike', 'bulletList', 'orderedList']),
+                            ])->columns(1), // Use 1 column for content in tabs for readability
 
-                RichEditor::make('description')
-                    ->label('Description')
-                    ->placeholder('A brief description of this dosage form.')
-                    ->toolbarButtons(['bold', 'italic', 'link', 'blockquote', 'strike', 'bulletList', 'orderedList'])
-                    ->columnSpanFull(),
+                        Tab::make('Spanish')
+                            ->schema([
+                                TextInput::make('name_es')
+                                    ->label('Name (Spanish)')
+                                    ->maxLength(255)
+                                    ->unique(ignoreRecord: true, table: DosageForm::class, column: 'name_es') // Unique in Spanish names
+                                    ->helperText('Spanish name.'),
 
-                TextInput::make('order')
-                    ->label('Display Order')
-                    ->numeric()
-                    ->default(0)
-                    ->rules(['min:0'])
-                    ->helperText('Lower numbers appear first.'),
+                                RichEditor::make('description_es')
+                                    ->label('Description (Spanish)')
+                                    ->toolbarButtons(['bold', 'italic', 'link', 'blockquote', 'strike', 'bulletList', 'orderedList']),
+                            ])->columns(1), // Use 1 column for content in tabs
+                    ])->columnSpanFull(), // Make tabs span full width
 
-                Toggle::make('is_active')
-                    ->label('Is Active')
-                    ->default(true)
-                    ->helperText('Deactivate to hide this dosage form from the website.'),
+                // Separate section for common dosage form details (not language specific)
+                Section::make('Dosage Form Details')
+                    ->schema([
+                        TextInput::make('icon_class')
+                            ->label('Font Awesome Icon Class')
+                            ->placeholder('e.g., fa-solid fa-syringe, fa-pills')
+                            ->maxLength(255)
+                            ->helperText('Find icons at fontawesome.com. Use "fa-solid fa-iconname".'),
 
-                Toggle::make('is_featured')
-                    ->label('Show on Homepage (Featured)')
-                    ->default(false)
-                    ->helperText('Enable to display this dosage form in the "A Comprehensive Product Portfolio" section on the homepage.'),
+                        TextInput::make('order')
+                            ->label('Display Order')
+                            ->numeric()
+                            ->default(0)
+                            ->rules(['min:0'])
+                            ->helperText('Lower numbers appear first.'),
+
+                        Toggle::make('is_active')
+                            ->label('Is Active')
+                            ->default(true)
+                            ->helperText('Deactivate to hide this dosage form from the website.'),
+
+                        Toggle::make('is_featured')
+                            ->label('Show on Homepage (Featured)')
+                            ->default(false)
+                            ->helperText('Enable to display this dosage form in the "A Comprehensive Product Portfolio" section on the homepage.'),
+                    ])->columns(2), // Layout this section in 2 columns
             ]);
     }
 
@@ -80,15 +100,17 @@ class DosageFormResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Name (EN)')
                     ->searchable()
-                    ->sortable(),
-
-                // The 'icon_class' column is TEMPORARILY REMOVED FROM THE TABLE
-                // to bypass the SvgNotFound error.
-                // We will re-evaluate displaying it later if needed.
-
-                TextColumn::make('description')
-                    ->limit(70)
+                    ->sortable()
+                    ->weight('bold'),
+                TextColumn::make('name_es') // Display Spanish name in table (toggleable)
+                    ->label('Name (ES)')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('icon_class') // We are temporarily showing icon class as text for debugging
+                    ->label('Icon Class')
                     ->tooltip(fn (string $state): string => $state)
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('order')
@@ -115,7 +137,15 @@ class DosageFormResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('is_active')
+                    ->label('Status')
+                    ->options([
+                        true => 'Active',
+                        false => 'Inactive',
+                    ]),
+                Tables\Filters\TernaryFilter::make('is_featured')
+                    ->label('Featured Status')
+                    ->boolean(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

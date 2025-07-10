@@ -15,6 +15,7 @@ class NavigationItem extends Model
 
     protected $fillable = [
         'label',
+        'label_es', // ADD THIS LINE
         'type',
         'custom_url',
         'page_id',
@@ -74,20 +75,20 @@ class NavigationItem extends Model
             case 'page':
                 return $this->page ? route('pages.show', $this->page->slug) : '#';
             case 'news_category':
-                return $this->newsCategory ? route('news.index', ['category' => $this->newsCategory->slug]) : '#'; // Assuming news.index can filter by category slug
+                return $this->newsCategory ? route('news.index', ['category' => $this->newsCategory->slug]) : '#';
             case 'therapeutic_category':
-                return $this->therapeuticCategory ? route('products.index', ['category' => $this->therapeuticCategory->name]) : '#'; // Assuming products.index can filter by category name
+                return $this->therapeuticCategory ? route('products.index', ['category' => $this->therapeuticCategory->name]) : '#';
             case 'dosage_form':
-                return $this->dosageForm ? route('products.index', ['dosageForm' => $this->dosageForm->name]) : '#'; // Assuming products.index can filter by dosage form name
-            case 'homepage_section': // For anchors on the homepage
-                return url('/') . $this->custom_url; // e.g., custom_url = '#network'
-            case 'products_index': // Specific link to products page
+                return $this->dosageForm ? route('products.index', ['dosageForm' => $this->dosageForm->name]) : '#';
+            case 'homepage_section':
+                return url('/') . $this->custom_url;
+            case 'products_index':
                 return route('products.index');
-            case 'news_index': // Specific link to news page
+            case 'news_index':
                 return route('news.index');
-            case 'contact_index': // Specific link to contact page
+            case 'contact_index':
                 return route('contact.index');
-            case 'home_index': // Specific link to home page
+            case 'home_index':
                 return url('/');
             case 'custom_url':
             default:
